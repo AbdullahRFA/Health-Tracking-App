@@ -32,10 +32,54 @@ class _BMIScreenState extends State<BMIScreen> {
         backgroundColor: Colors.deepPurple,
         title: const Text(
           "BMI Calculator",
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white,),
+        ),
+          centerTitle : true,
+        elevation: 10,
+      ),
+    body: Container(
+      padding: const EdgeInsets.all(16),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+            colors:[
+              Color(0xFF9417EF), // corrected hex color format
+              Color(0xFF9573A3),
+            ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight
+        )
+      ),
+      child: const Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text("Enter Your Details ",
+
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              color: Colors.white
+            ),
+            textAlign: TextAlign.center,
+
+          )
+        ],
+      ),
+    ),
+    );
+  }
+
+  Widget _buildGenderButton(String label, IconData icon, bool isSelected ){
+    return GestureDetector(
+      onTap: (){
+        
+      },
+      child: AnimatedContainer(
+          duration: Duration(microseconds: 300),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+        decoration: BoxDecoration(
+          color: isSelected ? Colors.white : Colors.white.withOpacity(0.2)
         ),
       ),
-
     );
   }
 }
