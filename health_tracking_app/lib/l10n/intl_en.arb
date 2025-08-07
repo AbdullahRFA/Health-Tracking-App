@@ -1,0 +1,21 @@
+{
+  "appTitle": "BMI Calculator",
+  "enterDetails": "Enter Your Details",
+  "calculate": "Calculate",
+  "male": "Male",
+  "female": "Female",
+  "height": "Height",
+  "weight": "Weight",
+  "age": "Age",
+  "bmiResult": "BMI Result",
+  "category": "Category",
+  "close": "Close",
+  "underweight": "Underweight",
+  "normal": "Normal",
+  "overweight": "Overweight",
+  "obese": "Obese",
+  "underweightSuggestion": "You are underweight. Eat more calorie-dense foods and do strength training.",
+  "normalSuggestion": "Great! Maintain your weight with a balanced diet and regular activity.",
+  "overweightSuggestion": "You are overweight. Try a low-calorie diet and increase physical activity.",
+  "obeseSuggestion": "You are obese. Consult a doctor and follow a structured health plan."
+}

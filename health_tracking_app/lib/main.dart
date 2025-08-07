@@ -1,26 +1,54 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:health_tracking_app/l10n/app_localizations.dart';
+
 
 void main() {
   runApp(const BMICalculatorApp());
 }
 
-class BMICalculatorApp extends StatelessWidget {
+class BMICalculatorApp extends StatefulWidget {
   const BMICalculatorApp({super.key});
+
+  @override
+  State<BMICalculatorApp> createState() => _BMICalculatorAppState();
+}
+
+class _BMICalculatorAppState extends State<BMICalculatorApp> {
+  Locale _locale = const Locale('en');
+
+  void _setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BMI Calculator',
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const BMIScreen(),
+      locale: _locale,
+      supportedLocales: const [
+        Locale('en'),
+        Locale('bn'),
+      ],
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      home: BMIScreen(onLocaleChange: _setLocale),
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class BMIScreen extends StatefulWidget {
-  const BMIScreen({super.key});
+  final Function(Locale) onLocaleChange;
+  const BMIScreen({super.key, required this.onLocaleChange});
 
   @override
   State<BMIScreen> createState() => _BMIScreenState();
@@ -41,51 +69,28 @@ class _BMIScreenState extends State<BMIScreen> {
     Color resultColor = Colors.black;
 
     if (bmi < 18.5) {
-      result = "Underweight";
+      result = AppLocalizations.of(context)!.underweight;
       resultColor = Colors.blueGrey;
-      suggestion = '''
-You are underweight. Here's what you can do:
-• Eat more frequently and include calorie-dense foods like nuts, dairy, and whole grains.
-• Include strength training exercises to build muscle.
-• Stay consistent with healthy meals and avoid skipping meals.
-• Consult a dietitian if needed.
-''';
+      suggestion = AppLocalizations.of(context)!.underweightSuggestion;
     } else if (bmi >= 18.5 && bmi < 25) {
-      result = "Normal";
+      result = AppLocalizations.of(context)!.normal;
       resultColor = Colors.green;
-      suggestion = '''
-Great! You have a normal BMI.
-• Maintain your current weight with a balanced diet.
-• Stay physically active at least 30 minutes per day.
-• Keep up regular health check-ups and hydrate well.
-''';
+      suggestion = AppLocalizations.of(context)!.normalSuggestion;
     } else if (bmi >= 25 && bmi < 30) {
-      result = "Overweight";
+      result = AppLocalizations.of(context)!.overweight;
       resultColor = Colors.orangeAccent;
-      suggestion = '''
-You are overweight. Here’s what you can try:
-• Adopt a low-calorie, high-fiber diet (vegetables, lean protein, whole grains).
-• Avoid sugary drinks and snacks.
-• Engage in at least 45 minutes of physical activity daily (e.g., brisk walking, jogging).
-• Get enough sleep and manage stress.
-''';
+      suggestion = AppLocalizations.of(context)!.overweightSuggestion;
     } else {
-      result = "Obese";
+      result = AppLocalizations.of(context)!.obese;
       resultColor = Colors.red;
-      suggestion = '''
-You are obese. Taking action is important:
-• Consult a doctor or dietitian for a personalized health plan.
-• Focus on portion control and reduce sugar & saturated fats.
-• Engage in regular aerobic exercise (like walking, swimming, cycling).
-• Set realistic goals and track progress consistently.
-''';
+      suggestion = AppLocalizations.of(context)!.obeseSuggestion;
     }
 
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text("BMI Result", textAlign: TextAlign.center),
+        title: Text(AppLocalizations.of(context)!.bmiResult, textAlign: TextAlign.center),
         content: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -100,7 +105,7 @@ You are obese. Taking action is important:
               ),
               const SizedBox(height: 8),
               Text(
-                "Category: $result",
+                "${AppLocalizations.of(context)!.category}: $result",
                 style: TextStyle(fontSize: 22, color: resultColor),
                 textAlign: TextAlign.center,
               ),
@@ -117,7 +122,7 @@ You are obese. Taking action is important:
           Center(
             child: TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("Close"),
+              child: Text(AppLocalizations.of(context)!.close),
             ),
           )
         ],
@@ -130,7 +135,7 @@ You are obese. Taking action is important:
       child: GestureDetector(
         onTap: () {
           setState(() {
-            isMale = label == "Male";
+            isMale = label == AppLocalizations.of(context)!.male;
           });
         },
         child: AnimatedContainer(
@@ -194,9 +199,11 @@ You are obese. Taking action is important:
 
   @override
   Widget build(BuildContext context) {
+    final loc = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("BMI Calculator"),
+        title: Text(loc.appTitle),
         centerTitle: true,
         elevation: 10,
         backgroundColor: Colors.deepPurple,
@@ -216,25 +223,25 @@ You are obese. Taking action is important:
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 10),
-                const Text(
-                  "Enter Your Details",
-                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
+                Text(
+                  loc.enterDetails,
+                  style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   children: [
-                    _buildGenderButton("Male", Icons.male, isMale),
-                    _buildGenderButton("Female", Icons.female, !isMale),
+                    _buildGenderButton(loc.male, Icons.male, isMale),
+                    _buildGenderButton(loc.female, Icons.female, !isMale),
                   ],
                 ),
                 const SizedBox(height: 20),
-                _buildSlider("Height", height, 100, 220, "cm", (value) {
+                _buildSlider(loc.height, height, 100, 220, "cm", (value) {
                   setState(() => height = value);
                 }),
-                _buildSlider("Weight", weight, 30, 150, "kg", (value) {
+                _buildSlider(loc.weight, weight, 30, 150, "kg", (value) {
                   setState(() => weight = value);
                 }),
-                _buildSlider("Age", age, 10, 100, "yrs", (value) {
+                _buildSlider(loc.age, age, 10, 100, "yrs", (value) {
                   setState(() => age = value);
                 }),
                 const SizedBox(height: 30),
@@ -247,15 +254,29 @@ You are obese. Taking action is important:
                       borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  child: const Text(
-                    "Calculate",
-                    style: TextStyle(
+                  child: Text(
+                    loc.calculate,
+                    style: const TextStyle(
                         color: Colors.deepPurple,
                         fontWeight: FontWeight.bold,
                         fontSize: 18),
                   ),
                 ),
                 const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () => widget.onLocaleChange(const Locale('en')),
+                      child: const Text("English"),
+                    ),
+                    const SizedBox(width: 10),
+                    ElevatedButton(
+                      onPressed: () => widget.onLocaleChange(const Locale('bn')),
+                      child: const Text("বাংলা"),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
