@@ -37,20 +37,48 @@ class _BMIScreenState extends State<BMIScreen> {
     double bmi = weight / pow(heightInMeters, 2);
 
     String result = '';
+    String suggestion = '';
     Color resultColor = Colors.black;
 
     if (bmi < 18.5) {
       result = "Underweight";
       resultColor = Colors.blueGrey;
+      suggestion = '''
+You are underweight. Here's what you can do:
+• Eat more frequently and include calorie-dense foods like nuts, dairy, and whole grains.
+• Include strength training exercises to build muscle.
+• Stay consistent with healthy meals and avoid skipping meals.
+• Consult a dietitian if needed.
+''';
     } else if (bmi >= 18.5 && bmi < 25) {
       result = "Normal";
       resultColor = Colors.green;
+      suggestion = '''
+Great! You have a normal BMI.
+• Maintain your current weight with a balanced diet.
+• Stay physically active at least 30 minutes per day.
+• Keep up regular health check-ups and hydrate well.
+''';
     } else if (bmi >= 25 && bmi < 30) {
       result = "Overweight";
       resultColor = Colors.orangeAccent;
+      suggestion = '''
+You are overweight. Here’s what you can try:
+• Adopt a low-calorie, high-fiber diet (vegetables, lean protein, whole grains).
+• Avoid sugary drinks and snacks.
+• Engage in at least 45 minutes of physical activity daily (e.g., brisk walking, jogging).
+• Get enough sleep and manage stress.
+''';
     } else {
       result = "Obese";
       resultColor = Colors.red;
+      suggestion = '''
+You are obese. Taking action is important:
+• Consult a doctor or dietitian for a personalized health plan.
+• Focus on portion control and reduce sugar & saturated fats.
+• Engage in regular aerobic exercise (like walking, swimming, cycling).
+• Set realistic goals and track progress consistently.
+''';
     }
 
     showDialog(
@@ -58,24 +86,32 @@ class _BMIScreenState extends State<BMIScreen> {
       builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text("BMI Result", textAlign: TextAlign.center),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              bmi.toStringAsFixed(1),
-              style: TextStyle(
-                fontSize: 40,
-                fontWeight: FontWeight.bold,
-                color: resultColor,
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                bmi.toStringAsFixed(1),
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  color: resultColor,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Category: $result",
-              style: TextStyle(fontSize: 22, color: resultColor),
-              textAlign: TextAlign.center,
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                "Category: $result",
+                style: TextStyle(fontSize: 22, color: resultColor),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                suggestion,
+                style: const TextStyle(fontSize: 16, color: Colors.black87),
+                textAlign: TextAlign.left,
+              ),
+            ],
+          ),
         ),
         actions: [
           Center(
