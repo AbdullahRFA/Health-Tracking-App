@@ -13,14 +13,18 @@ A Flutter-based mobile application for calculating Body Mass Index (BMI) with su
 
 ## Screenshots
 
-<img src="SS/input_heavy_weight.jpg" alt="Product Page" width="700"/>
-<img src="SS/output_heavy_weighted.jpg" alt="Product Page" width="700"/>
-<img src="SS/extra_weighted_input.jpg" alt="Product Page" width="700"/>
-<img src="SS/extra_weighted_output.jpg" alt="Product Page" width="700"/>
-<img src="SS/normal_input.jpg" alt="Product Page" width="700"/>
-<img src="SS/normal_output.jpg" alt="Product Page" width="700"/>
-<img src="SS/low_weighted_input.jpg" alt="Product Page" width="700"/>
-<img src="SS/low_weighted_result.jpg" alt="Product Page" width="700"/>
+## App Screenshots
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+  <img src="SS/input_heavy_weight.jpg" alt="Heavy Weight Input" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/output_heavy_weighted.jpg" alt="Heavy Weight Result" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/extra_weighted_input.jpg" alt="Extra Weight Input" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/extra_weighted_output.jpg" alt="Extra Weight Result" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/normal_input.jpg" alt="Normal Input" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/normal_output.jpg" alt="Normal Result" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/low_weighted_input.jpg" alt="Low Weight Input" style="width: 300px; max-width: 100%;"/>
+  <img src="SS/low_weighted_result.jpg" alt="Low Weight Result" style="width: 300px; max-width: 100%;"/>
+</div>
 
 ## Getting Started
 
