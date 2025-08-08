@@ -26,6 +26,9 @@ A Flutter-based mobile application for calculating Body Mass Index (BMI) with su
   <img src="SS/low_weighted_result.jpg" alt="Low Weight Result" style="width: 300px; max-width: 100%;"/>
 </div>
 
+## 📹 Live Demo
+<video src="https://github.com/AbdullahRFA/Health-Tracking-App/blob/main/SS/Demo%20video.mp4" width="300" controls></video>
+
 ## Getting Started
 
 ### Prerequisites
